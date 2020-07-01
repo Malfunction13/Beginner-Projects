@@ -51,6 +51,17 @@ score_board.goto(0, 260)
 score_board.write("Score: 0      High Score: 0", align="center", font=("Consolas", 24, "normal"))
 
 
+"""Initialize game rules"""
+rules = turtle.Turtle()
+rules.speed(0)
+rules.shape("square")
+rules.color("white")
+rules.penup()
+rules.hideturtle()
+rules.goto(0, -240)
+rules.write("Use Arrow keys to move\nP to pause and Q to quit\nHit SPACE when you are ready!", align="center", font=("Consolas", 18, "normal"))
+
+
 """Movement logic"""
 def move():
     if head.direction == "up":
@@ -167,6 +178,10 @@ def quit_game():
     global running
     running = False
 
+def clear_rules():
+    rules.clear()
+
+
 """Keyboard bindings"""
 window.listen()
 window.onkeypress(go_up, "Up")
@@ -175,6 +190,8 @@ window.onkeypress(go_left, "Left")
 window.onkeypress(go_right, "Right")
 window.onkeypress(pause, "p")
 window.onkeypress(quit_game, "q")
+window.onkeypress(clear_rules, "space")
+
 
 """Main game loop"""
 def main():
@@ -183,6 +200,8 @@ def main():
     delay = 0.1
     score = 0
     high_score = 0
+
+
 
     while running:
         if not paused:
