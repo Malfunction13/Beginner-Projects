@@ -6,8 +6,10 @@ import turtle
 import time
 import random
 
-body_parts = []
 paused = False
+running = True
+
+body_parts = []
 colors = ["red", "orange", "blue", "pink"]
 
 """Initialize game screen"""
@@ -68,15 +70,15 @@ def move():
 
 
 def handle_food():
-    if head.distance(food) < 20:
-        x = random.randrange(-280, 280, 20)
-        y = random.randrange(-280, 280, 20)
+    if head.distance(food) < 10:
+        x = random.randrange(-280, 280, 10)
+        y = random.randrange(-280, 280, 10)
         food.goto(x, y)
         return True
 
 
 def grow_snake():
-    if head.distance(food) < 20:
+    if head.distance(food) < 10:
         body = turtle.Turtle()
         body.shapesize(0.5, 0.5)
         body.speed(0)
@@ -123,7 +125,6 @@ def collision_check():
 
 
 def update_score(score, high_score):
-
     score += 10
 
     if score > high_score:
@@ -162,6 +163,9 @@ def pause():
     global paused
     paused = not paused
 
+def quit_game():
+    global running
+    running = False
 
 """Keyboard bindings"""
 window.listen()
@@ -170,15 +174,17 @@ window.onkeypress(go_down, "Down")
 window.onkeypress(go_left, "Left")
 window.onkeypress(go_right, "Right")
 window.onkeypress(pause, "p")
-
+window.onkeypress(quit_game, "q")
 
 """Main game loop"""
 def main():
+    global paused
+    global running
     delay = 0.1
     score = 0
     high_score = 0
-    global paused
-    while True:
+
+    while running:
         if not paused:
             window.update()
             if collision_check():
