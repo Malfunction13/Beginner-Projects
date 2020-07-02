@@ -219,14 +219,11 @@ def main():
                                     update_score(score, high_score)[1] # for some reason this syntax doesnt make 2 functioncalls unlike the 2-line method
                 delay -= 0.001
 
-
             move()
             time.sleep(delay)
 
         else:
-
             window.update()
-
 
 main()
 
